@@ -71,7 +71,7 @@
         vertical-align: middle;
     }
 
-    /* [추가] Q&A 게시판 스타일 */
+    /* Q&A 게시판 스타일 */
     .qna-item {
         padding: 15px 0;
         border-bottom: 1px solid #eee;
@@ -89,7 +89,7 @@
     .status-done { background: #e8f5e9; color: #2e7d32; }
     .status-wait { background: #f5f5f5; color: #757575; }
     
-    /* [추가] 가이드 비교 박스 스타일 */
+    /* 가이드 비교 박스 스타일 */
     .vs-box {
         background: #f8f9fa;
         border-radius: 8px;
@@ -107,6 +107,36 @@
         border-radius: 50%;
         font-size: 12px;
         margin-right: 5px;
+    }
+
+    /* [추가] 체크리스트 스타일 */
+    .check-group {
+        margin-bottom: 20px;
+    }
+    .check-group-title {
+        font-weight: bold;
+        color: #5F0080;
+        margin-bottom: 8px;
+        font-size: 14px;
+        background: #fdfaff;
+        padding: 8px;
+        border-radius: 4px;
+    }
+    .check-item {
+        display: flex;
+        align-items: flex-start;
+        padding: 8px 5px;
+        border-bottom: 1px solid #f5f5f5;
+    }
+    .check-item input[type="checkbox"] {
+        margin-right: 10px;
+        margin-top: 3px;
+        transform: scale(1.2);
+    }
+    .check-desc {
+        font-size: 12px;
+        color: #666;
+        margin-top: 2px;
     }
   </style>
 </head>
@@ -126,8 +156,8 @@
       </div>
       <ul class="menu-list">
           <li><a href="#">📂 내 서류 보관함 <span class="badge-new">NEW</span></a></li>
+          <li><a href="#doc-checklist" onclick="toggleMenu()">📋 필요 서류 체크리스트</a></li>
           <li><a href="#qna-list" onclick="toggleMenu()">🗣️ 상속 커뮤니티</a></li>
-          <li><a href="#">📢 공지사항 & 이벤트</a></li>
           <li><a href="#guide-detail" onclick="toggleMenu()">❓ 이용 가이드</a></li>
           <li><a href="#">⚙️ 환경설정</a></li>
       </ul>
@@ -191,15 +221,22 @@
       </div>
 
       <div class="card">
-        <div class="hstack space-between">
-          <div class="title-sm">간편 상속 가이드</div>
-          <a class="muted tiny" href="#guide-detail">더보기</a>
-        </div>
-        <div class="vstack gap-8 mt-10">
-          <div class="row">
-            <div>상속의 종류</div>
-            <a class="chip" href="#">필요 서류 체크리스트</a>
-          </div>
+        <div class="title-sm mb-10">간편 상속 가이드</div>
+        <div class="hstack gap-10">
+            <a href="#guide-detail" class="grow" style="text-decoration:none;">
+                <div style="background:#f8f9fa; padding:15px; border-radius:8px; text-align:center;">
+                    <div style="font-size:24px;">📖</div>
+                    <div class="bold mt-6" style="font-size:13px; color:#333;">초보자 가이드</div>
+                    <div class="tiny muted">절차 A to Z</div>
+                </div>
+            </a>
+            <a href="#doc-checklist" class="grow" style="text-decoration:none;">
+                <div style="background:#f8f9fa; padding:15px; border-radius:8px; text-align:center;">
+                    <div style="font-size:24px;">✅</div>
+                    <div class="bold mt-6" style="font-size:13px; color:#333;">필요 서류</div>
+                    <div class="tiny muted">상황별 체크리스트</div>
+                </div>
+            </a>
         </div>
       </div>
 
@@ -210,6 +247,95 @@
         </div>
         <p class="muted tiny mt-10">상속 착수, 어디서부터 시작해야 할까요?</p>
       </div>
+    </section>
+
+    <section class="screen" id="doc-checklist" data-title="필요 서류 안내">
+        <div class="card" style="margin-bottom:15px;">
+            <h3 class="title-sm">어떤 상속을 준비하시나요?</h3>
+            <p class="tiny muted mt-6">상황에 따라 탭을 눌러 필요한 서류를 확인하세요.</p>
+        </div>
+
+        <div class="hstack gap-4 mb-10" style="overflow-x:auto; white-space:nowrap; padding-bottom:5px;">
+             <button class="chip" style="background:#5F0080; color:white; border-color:#5F0080;">공통 필수</button>
+             <button class="chip">부동산 등기</button>
+             <button class="chip">금융/예금</button>
+             <button class="chip">한정승인/포기</button>
+        </div>
+
+        <div class="card">
+            <div class="check-group">
+                <div class="check-group-title">1. 동사무소(행정복지센터) 발급</div>
+                <label class="check-item">
+                    <input type="checkbox">
+                    <div>
+                        <div class="bold">피상속인(망인) 기본증명서 (상세)</div>
+                        <div class="check-desc">주민번호 전부 공개, '상세'로 발급 필수</div>
+                    </div>
+                </label>
+                <label class="check-item">
+                    <input type="checkbox">
+                    <div>
+                        <div class="bold">피상속인(망인) 가족관계증명서 (상세)</div>
+                    </div>
+                </label>
+                <label class="check-item">
+                    <input type="checkbox">
+                    <div>
+                        <div class="bold">피상속인(망인) 주민등록 말소자초본</div>
+                        <div class="check-desc">과거 주소 변동 내역 전체 포함</div>
+                    </div>
+                </label>
+                <label class="check-item">
+                    <input type="checkbox">
+                    <div>
+                        <div class="bold">상속인 전원 기본증명서 (상세)</div>
+                    </div>
+                </label>
+                <label class="check-item">
+                    <input type="checkbox">
+                    <div>
+                        <div class="bold">상속인 전원 인감증명서</div>
+                        <div class="check-desc">본인 발급용, 발행 3개월 이내</div>
+                    </div>
+                </label>
+            </div>
+
+            <div class="check-group">
+                <div class="check-group-title">2. 부동산 상속 등기 필요 서류</div>
+                <label class="check-item">
+                    <input type="checkbox">
+                    <div>
+                        <div class="bold">토지/건축물 대장</div>
+                        <div class="check-desc">정부24 발급 가능</div>
+                    </div>
+                </label>
+                <label class="check-item">
+                    <input type="checkbox">
+                    <div>
+                        <div class="bold">취득세 신고서 및 납부확인서</div>
+                        <div class="check-desc">관할 구청 세무과 신고</div>
+                    </div>
+                </label>
+                <label class="check-item">
+                    <input type="checkbox">
+                    <div>
+                        <div class="bold">국민주택채권 매입필증</div>
+                        <div class="check-desc">은행에서 매입 후 발행 번호 필요</div>
+                    </div>
+                </label>
+                <label class="check-item">
+                    <input type="checkbox">
+                    <div>
+                        <div class="bold">상속재산분할협의서</div>
+                        <div class="check-desc">상속인 전원의 인감도장 날인 필수</div>
+                    </div>
+                </label>
+            </div>
+
+             <div class="mt-10 center">
+                 <button class="btn primary full">체크리스트 저장하기</button>
+             </div>
+        </div>
     </section>
 
     <section class="screen" id="guide-detail" data-title="상속 가이드">
@@ -279,7 +405,6 @@
                     <span class="muted">2025.10.12</span>
                 </div>
             </div>
-
             <div class="qna-item" style="padding:15px;">
                 <div class="hstack space-between">
                     <span class="qna-tag">#상속세 #공제한도</span>
@@ -292,7 +417,6 @@
                     <span class="muted">2025.10.11</span>
                 </div>
             </div>
-
             <div class="qna-item" style="padding:15px;">
                 <div class="hstack space-between">
                     <span class="qna-tag">#유류분 #유언장</span>
@@ -305,8 +429,7 @@
                     <span class="muted">방금 전</span>
                 </div>
             </div>
-            
-             <div class="qna-item" style="padding:15px; border-bottom:none;">
+            <div class="qna-item" style="padding:15px; border-bottom:none;">
                 <div class="hstack space-between">
                     <span class="qna-tag">#부동산 #등기</span>
                     <span class="qna-status status-done">답변완료</span>
