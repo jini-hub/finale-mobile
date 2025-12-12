@@ -31,7 +31,7 @@
     .check-desc { font-size: 12px; color: #666; margin-top: 2px; }
 
     /* Q&A & 가이드 스타일 */
-    .qna-item { padding: 15px 0; border-bottom: 1px solid #eee; }
+    .qna-item { padding: 15px 0; border-bottom: 1px solid #eee; animation: slideDown 0.3s ease; }
     .qna-tag { font-size: 11px; color: #888; margin-bottom: 4px; }
     .qna-status { font-size: 11px; padding: 2px 6px; border-radius: 4px; }
     .status-done { background: #e8f5e9; color: #2e7d32; }
@@ -39,12 +39,10 @@
     .vs-box { background: #f8f9fa; border-radius: 8px; padding: 15px; margin-bottom: 10px; }
     .step-circle { display: inline-block; width: 20px; height: 20px; background: #5F0080; color: white; text-align: center; line-height: 20px; border-radius: 50%; font-size: 12px; margin-right: 5px; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes slideDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
 
     /* 정부 문서 느낌 스타일 */
-    .doc-paper {
-        background: white; border: 1px solid #ddd; padding: 20px; box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
-        font-family: "Batang", "Serif"; position: relative;
-    }
+    .doc-paper { background: white; border: 1px solid #ddd; padding: 20px; box-shadow: 2px 2px 5px rgba(0,0,0,0.05); font-family: "Batang", "Serif"; position: relative; }
     .doc-header { text-align: center; border-bottom: 2px double #333; margin-bottom: 15px; padding-bottom: 10px; }
     .doc-title { font-size: 18px; font-weight: bold; color: #000; letter-spacing: 2px; }
     .doc-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 15px; }
@@ -60,116 +58,70 @@
     .calc-result-box { background: #f0f4f8; padding: 20px; border-radius: 8px; text-align: center; display: none; margin-top: 20px; }
     .calc-result-box.show { display: block; animation: fadeIn 0.5s; }
 
-    /* [신규] 채팅방 스타일 (Chat UI) */
-    .chat-screen {
-        background-color: #b2c7da; /* 카카오톡 느낌 배경색 */
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
+    /* 채팅방 스타일 */
+    .chat-screen { background-color: #b2c7da; min-height: 100vh; display: flex; flex-direction: column; }
+    .chat-area { flex: 1; padding: 15px; overflow-y: auto; padding-bottom: 70px; }
+    .chat-date { text-align: center; font-size: 10px; color: #fff; background: rgba(0,0,0,0.1); padding: 3px 10px; border-radius: 10px; margin: 10px auto; width: fit-content; }
+    .chat-bubble-row { display: flex; margin-bottom: 10px; }
+    .chat-bubble-row.me { justify-content: flex-end; }
+    .chat-bubble { max-width: 70%; padding: 10px; border-radius: 10px; font-size: 14px; position: relative; box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
+    .chat-bubble.you { background: white; color: #333; border-top-left-radius: 0; }
+    .chat-bubble.me { background: #5F0080; color: white; border-top-right-radius: 0; }
+    .chat-profile { width: 35px; height: 35px; background: #fff; border-radius: 50%; margin-right: 8px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+    .chat-name { font-size: 11px; color: #555; margin-bottom: 4px; margin-left: 2px; }
+    .chat-time { font-size: 9px; color: #555; align-self: flex-end; margin: 0 5px; }
+    .chat-input-bar { position: fixed; bottom: 0; left: 0; width: 100%; max-width: 600px; background: white; padding: 10px; display: flex; align-items: center; box-shadow: 0 -2px 5px rgba(0,0,0,0.05); box-sizing: border-box; }
+    .chat-input { flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 20px; background: #f8f8f8; margin-right: 10px; font-size: 14px; }
+    .chat-send-btn { background: #5F0080; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+
+    /* [신규] 글쓰기 모달 스타일 */
+    .modal-overlay {
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0,0,0,0.5); z-index: 3000; display: none;
+        align-items: center; justify-content: center;
     }
-    .chat-area {
-        flex: 1;
-        padding: 15px;
-        overflow-y: auto;
-        padding-bottom: 70px; /* 입력창 공간 확보 */
+    .modal-overlay.active { display: flex; }
+    .write-card {
+        background: white; width: 90%; max-width: 500px; border-radius: 12px;
+        padding: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        animation: slideUp 0.3s ease;
     }
-    .chat-date {
-        text-align: center;
-        font-size: 10px;
-        color: #fff;
-        background: rgba(0,0,0,0.1);
-        padding: 3px 10px;
-        border-radius: 10px;
-        margin: 10px auto;
-        width: fit-content;
-    }
-    .chat-bubble-row {
-        display: flex;
-        margin-bottom: 10px;
-    }
-    .chat-bubble-row.me {
-        justify-content: flex-end;
-    }
-    .chat-bubble {
-        max-width: 70%;
-        padding: 10px;
-        border-radius: 10px;
-        font-size: 14px;
-        position: relative;
-        box-shadow: 0 1px 2px rgba(0,0,0,0.1);
-    }
-    .chat-bubble.you {
-        background: white;
-        color: #333;
-        border-top-left-radius: 0;
-    }
-    .chat-bubble.me {
-        background: #5F0080; /* 브랜드 컬러 */
-        color: white;
-        border-top-right-radius: 0;
-    }
-    .chat-profile {
-        width: 35px;
-        height: 35px;
-        background: #fff;
-        border-radius: 50%;
-        margin-right: 8px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 20px;
-    }
-    .chat-name {
-        font-size: 11px;
-        color: #555;
-        margin-bottom: 4px;
-        margin-left: 2px;
-    }
-    .chat-time {
-        font-size: 9px;
-        color: #555;
-        align-self: flex-end;
-        margin: 0 5px;
-    }
-    .chat-input-bar {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        max-width: 600px; /* PC화면 대응 */
-        background: white;
-        padding: 10px;
-        display: flex;
-        align-items: center;
-        box-shadow: 0 -2px 5px rgba(0,0,0,0.05);
-        box-sizing: border-box;
-    }
-    .chat-input {
-        flex: 1;
-        padding: 10px;
-        border: 1px solid #ddd;
-        border-radius: 20px;
-        background: #f8f8f8;
-        margin-right: 10px;
-        font-size: 14px;
-    }
-    .chat-send-btn {
-        background: #5F0080;
-        color: white;
-        border: none;
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-    }
+    @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    .write-label { display: block; font-size: 12px; font-weight: bold; color: #555; margin-bottom: 5px; }
+    .write-input { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; margin-bottom: 15px; box-sizing: border-box; }
+    .write-textarea { width: 100%; height: 100px; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; margin-bottom: 15px; resize: none; box-sizing: border-box; }
   </style>
 </head>
 <body>
 
   <div id="menuOverlay" onclick="toggleMenu()"></div> 
+  
+  <div id="writeModal" class="modal-overlay">
+      <div class="write-card">
+          <div class="hstack space-between mb-10">
+              <h3 class="title-sm">질문하기</h3>
+              <button onclick="closeQnaWrite()" style="border:none; background:none; font-size:20px;">✕</button>
+          </div>
+          
+          <label class="write-label">카테고리</label>
+          <select id="qna-category" class="write-input">
+              <option value="#상속세">상속세/증여세</option>
+              <option value="#부동산">부동산/등기</option>
+              <option value="#부채상속">빚 상속/한정승인</option>
+              <option value="#유류분">유류분/가족분쟁</option>
+              <option value="#기타">기타 문의</option>
+          </select>
+
+          <label class="write-label">제목</label>
+          <input type="text" id="qna-title" class="write-input" placeholder="궁금한 내용을 요약해주세요.">
+
+          <label class="write-label">내용</label>
+          <textarea id="qna-content" class="write-textarea" placeholder="자세한 상황을 적어주시면 전문가가 더 정확하게 답변드릴 수 있습니다."></textarea>
+
+          <button class="btn primary full" onclick="submitQuestion()">등록하기</button>
+      </div>
+  </div>
+
   <aside id="sideMenu">
       <div class="menu-header">
           <div style="display:flex; justify-content:space-between; align-items:center;">
@@ -348,70 +300,53 @@
     <section class="screen" id="experts" data-title="전문가 연결">
         <div class="card" style="background:#f8f9fa;"><p class="tiny muted">김○○님 상황에 딱 맞는</p><h3 class="title-sm">상속 전문 파트너를 추천해 드립니다.</h3></div>
         <div class="vstack gap-10 mt-10">
-            <div class="card">
-                <div class="hstack gap-10"><div style="width:50px; height:50px; background:#eee; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:24px;">👨‍⚖️</div><div class="grow"><div class="bold">김법무 변호사</div><div class="tiny muted">법무법인 피날레 · 경력 15년</div><div class="chip" style="margin-top:5px; font-size:10px;">상속등기 전문</div></div></div>
-                <p class="tiny mt-10 muted">"복잡한 등기 절차, 서류 준비부터 등기까지 한 번에 해결해 드립니다."</p>
-                <div class="hstack gap-10 mt-10">
-                    <button class="btn ghost small grow">프로필 보기</button>
-                    <a href="#chat-lawyer" class="btn primary small grow" style="text-decoration:none; display:flex; align-items:center; justify-content:center;">상담 신청</a>
-                </div>
-            </div>
-            <div class="card">
-                <div class="hstack gap-10"><div style="width:50px; height:50px; background:#eee; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:24px;">👩‍💼</div><div class="grow"><div class="bold">이세무 세무사</div><div class="tiny muted">세무회계 더함 · 경력 10년</div><div class="chip" style="margin-top:5px; font-size:10px;">상속세 절세</div></div></div>
-                <p class="tiny mt-10 muted">"최대 40% 절세 사례 보유. 사전 증여 전략까지 꼼꼼하게 챙겨드립니다."</p>
-                <div class="hstack gap-10 mt-10">
-                    <button class="btn ghost small grow">프로필 보기</button>
-                    <a href="#chat-tax" class="btn primary small grow" style="text-decoration:none; display:flex; align-items:center; justify-content:center;">상담 신청</a>
-                </div>
-            </div>
+            <div class="card"><div class="hstack gap-10"><div style="width:50px; height:50px; background:#eee; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:24px;">👨‍⚖️</div><div class="grow"><div class="bold">김법무 변호사</div><div class="tiny muted">법무법인 피날레 · 경력 15년</div><div class="chip" style="margin-top:5px; font-size:10px;">상속등기 전문</div></div></div><p class="tiny mt-10 muted">"복잡한 등기 절차, 서류 준비부터 등기까지 한 번에 해결해 드립니다."</p><div class="hstack gap-10 mt-10"><button class="btn ghost small grow">프로필 보기</button><a href="#chat-lawyer" class="btn primary small grow" style="text-decoration:none; display:flex; align-items:center; justify-content:center;">상담 신청</a></div></div>
+            <div class="card"><div class="hstack gap-10"><div style="width:50px; height:50px; background:#eee; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:24px;">👩‍💼</div><div class="grow"><div class="bold">이세무 세무사</div><div class="tiny muted">세무회계 더함 · 경력 10년</div><div class="chip" style="margin-top:5px; font-size:10px;">상속세 절세</div></div></div><p class="tiny mt-10 muted">"최대 40% 절세 사례 보유. 사전 증여 전략까지 꼼꼼하게 챙겨드립니다."</p><div class="hstack gap-10 mt-10"><button class="btn ghost small grow">프로필 보기</button><a href="#chat-tax" class="btn primary small grow" style="text-decoration:none; display:flex; align-items:center; justify-content:center;">상담 신청</a></div></div>
         </div>
     </section>
 
     <section class="screen chat-screen" id="chat-lawyer" data-title="김법무 변호사" data-show-bottomnav="false">
         <div class="chat-area" id="msg-area-lawyer">
             <div class="chat-date">2025년 10월 12일</div>
-            <div class="chat-bubble-row you">
-                <div class="chat-profile">👨‍⚖️</div>
-                <div>
-                    <div class="chat-name">김법무 변호사</div>
-                    <div class="hstack">
-                        <div class="chat-bubble you">안녕하세요. 법무법인 피날레 김법무 변호사입니다.<br>상속 등기나 법률 절차와 관련해 궁금한 점을 남겨주시면 확인 후 답변드리겠습니다.</div>
-                        <div class="chat-time">오전 10:00</div>
-                    </div>
-                </div>
-            </div>
+            <div class="chat-bubble-row you"><div class="chat-profile">👨‍⚖️</div><div><div class="chat-name">김법무 변호사</div><div class="hstack"><div class="chat-bubble you">안녕하세요. 법무법인 피날레 김법무 변호사입니다.<br>상속 등기나 법률 절차와 관련해 궁금한 점을 남겨주시면 확인 후 답변드리겠습니다.</div><div class="chat-time">오전 10:00</div></div></div></div>
         </div>
-        <div class="chat-input-bar">
-            <input type="text" class="chat-input" id="input-lawyer" placeholder="메시지를 입력하세요..." onkeypress="handleEnter(event, 'lawyer')">
-            <button class="chat-send-btn" onclick="sendMessage('lawyer')">➤</button>
-        </div>
+        <div class="chat-input-bar"><input type="text" class="chat-input" id="input-lawyer" placeholder="메시지를 입력하세요..." onkeypress="handleEnter(event, 'lawyer')"><button class="chat-send-btn" onclick="sendMessage('lawyer')">➤</button></div>
     </section>
 
     <section class="screen chat-screen" id="chat-tax" data-title="이세무 세무사" data-show-bottomnav="false">
         <div class="chat-area" id="msg-area-tax">
             <div class="chat-date">2025년 10월 12일</div>
-            <div class="chat-bubble-row you">
-                <div class="chat-profile">👩‍💼</div>
-                <div>
-                    <div class="chat-name">이세무 세무사</div>
-                    <div class="hstack">
-                        <div class="chat-bubble you">반갑습니다, 김○○님.<br>상속세 신고나 증여세 관련 절세 전략에 대해 무엇이든 물어보세요.</div>
-                        <div class="chat-time">오전 10:05</div>
-                    </div>
-                </div>
-            </div>
+            <div class="chat-bubble-row you"><div class="chat-profile">👩‍💼</div><div><div class="chat-name">이세무 세무사</div><div class="hstack"><div class="chat-bubble you">반갑습니다, 김○○님.<br>상속세 신고나 증여세 관련 절세 전략에 대해 무엇이든 물어보세요.</div><div class="chat-time">오전 10:05</div></div></div></div>
         </div>
-        <div class="chat-input-bar">
-            <input type="text" class="chat-input" id="input-tax" placeholder="메시지를 입력하세요..." onkeypress="handleEnter(event, 'tax')">
-            <button class="chat-send-btn" onclick="sendMessage('tax')">➤</button>
-        </div>
+        <div class="chat-input-bar"><input type="text" class="chat-input" id="input-tax" placeholder="메시지를 입력하세요..." onkeypress="handleEnter(event, 'tax')"><button class="chat-send-btn" onclick="sendMessage('tax')">➤</button></div>
     </section>
 
     <section class="screen" id="status" data-title="진행 현황"><div class="card"><h3 class="title-sm mb-10">김철수님 상속 진행률 40%</h3><div class="progress-bar" style="background:#eee; height:8px; border-radius:4px; overflow:hidden;"><div style="width:40%; background:#5F0080; height:100%;"></div></div><p class="tiny muted mt-6">예상 완료일: 2025. 12. 31</p></div><div class="vstack gap-10 mt-10"><div class="card" style="border-left: 4px solid #5F0080;"><div class="hstack space-between"><span style="font-weight:bold; color:#5F0080;">Step 1. 사망신고</span><span class="chip">완료</span></div><p class="tiny muted mt-6">2025. 10. 01 처리 완료</p></div><div class="card" style="border-left: 4px solid #5F0080; background:#fdfaff;"><div class="hstack space-between"><span style="font-weight:bold;">Step 2. 안심상속 원스톱 조회</span><span class="chip" style="background:#5F0080; color:white;">진행 중</span></div><p class="tiny mt-6">금융감독원에서 자산 내역을 조회하고 있습니다.<br>(약 2주 소요 예정)</p><button class="btn primary small full mt-10">조회 결과 확인하기</button></div><div class="card" style="opacity: 0.6;"><div class="hstack space-between"><span style="font-weight:bold;">Step 3. 상속세 신고</span><span class="chip">대기</span></div><p class="tiny muted mt-6">자산 확정 후 세무사가 배정될 예정입니다.</p></div></div></section>
     <section class="screen" id="assets" data-title="내 자산"><div class="card" style="background: linear-gradient(135deg, #5F0080, #3a004d); color: white;"><p class="tiny opacity-70">추정 상속 재산 가액</p><h2 class="title-lg mt-6">12억 5,000만원</h2><div class="hstack space-between mt-10 tiny opacity-70"><span>자산 +13.5억</span><span>채무 -1.0억</span></div></div><div class="vstack gap-10 mt-10"><div class="card"><div class="hstack gap-10"><div class="ic">🏢</div><div class="grow"><div class="bold">반포자이 아파트 84㎡</div><div class="tiny muted">서울 서초구 · 아파트</div></div><div class="bold">11억 2,000만원</div></div></div><div class="card"><div class="hstack gap-10"><div class="ic">💰</div><div class="grow"><div class="bold">국민은행 주택청약</div><div class="tiny muted">예금/신탁</div></div><div class="bold">5,000만원</div></div></div><div class="card" style="border:1px solid #ffebeb;"><div class="hstack gap-10"><div class="ic">📉</div><div class="grow"><div class="bold" style="color:red;">우리은행 신용대출</div><div class="tiny muted">금융 채무</div></div><div class="bold" style="color:red;">-1억 0,000만원</div></div></div></div></section>
     <section class="screen" id="mypage" data-title="마이페이지"><div class="card"><div class="hstack gap-10"><div style="width:50px; height:50px; background:#eee; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:24px;">👤</div><div><div class="bold">김○○님</div><div class="tiny muted">finale@example.com</div></div></div></div><ul class="list list-elev mt-10"><li class="list-item"><div>내 정보 수정</div><button class="btn ghost small">></button></li><li class="list-item"><div>알림 설정</div><button class="btn ghost small">ON</button></li><li class="list-item"><div>고객센터</div><button class="btn ghost small">></button></li><li class="list-item"><div>약관 및 정책</div><button class="btn ghost small">></button></li></ul></section>
     <section class="screen" id="guide-detail" data-title="상속 가이드"><div class="card"><h2 class="title-lg mb-10">왜 Finale인가요?</h2><p class="muted">대한민국 평균 상속 처리 기간 6개월.<br>복잡한 절차, 이제 3단계로 끝내세요.</p></div><h3 class="title-sm mt-10 ml-5">🆚 절차 비교</h3><div class="vs-box mt-6"><div class="bold mb-6">😓 일반적인 상속 절차</div><div class="vstack gap-4 tiny muted"><div>1. 사망신고 (주민센터)</div><div>2. 안심상속 원스톱 서비스 신청</div><div>3. 금융/부동산 재산 조회 (2주 소요)</div><div>4. 상속재산분할협의서 작성</div><div>5. 상속세 신고 및 납부</div></div></div><button class="btn primary full mt-10">무료로 시작하기</button></section>
-    <section class="screen" id="qna-list" data-title="전문가 Q&A"><div class="hstack space-between mb-10" style="padding:0 5px;"><h3 class="title-sm">전체 질문 (1,204)</h3><button class="btn primary small">✏️ 질문하기</button></div><div class="card" style="padding:0;"><div class="qna-item" style="padding:15px;"><div class="hstack space-between"><span class="qna-tag">#부채상속 #한정승인</span><span class="qna-status status-done">답변완료</span></div><div class="bold mt-6">아버지 빚이 더 많은 것 같은데 어떡하죠?</div></div></div></section>
+    
+    <section class="screen" id="qna-list" data-title="전문가 Q&A">
+        <div class="hstack space-between mb-10" style="padding:0 5px;">
+            <h3 class="title-sm">전체 질문 (1,204)</h3>
+            <button class="btn primary small" onclick="openQnaWrite()">✏️ 질문하기</button>
+        </div>
+
+        <div class="card" style="padding:0;" id="qna-container">
+            <div class="qna-item" style="padding:15px;">
+                <div class="hstack space-between"><span class="qna-tag">#부채상속 #한정승인</span><span class="qna-status status-done">답변완료</span></div>
+                <div class="bold mt-6">아버지 빚이 더 많은 것 같은데 어떡하죠?</div>
+                <div class="tiny muted mt-6">상속포기랑 한정승인 중에 뭘 해야 할지 모르겠습니다...</div>
+                <div class="hstack gap-10 mt-6 tiny"><span style="color:#5F0080;">김법무 변호사 답변</span><span class="muted">2025.10.12</span></div>
+            </div>
+            <div class="qna-item" style="padding:15px;">
+                <div class="hstack space-between"><span class="qna-tag">#상속세 #공제한도</span><span class="qna-status status-done">답변완료</span></div>
+                <div class="bold">배우자 공제 30억까지 가능한가요?</div>
+                <div class="tiny muted mt-6">어머니가 살아계신데 상속세가 얼마나 나올지 궁금합니다.</div>
+                <div class="hstack gap-10 mt-6 tiny"><span style="color:#5F0080;">이세무 세무사 답변</span><span class="muted">2025.10.11</span></div>
+            </div>
+        </div>
+    </section>
   </main>
 
   <nav id="tabbar" class="tabbar" aria-label="하단 탭바">
@@ -440,81 +375,82 @@
       }
       function formatNumber(input) {
           let value = input.value.replace(/[^0-9]/g, '');
-          if (value) {
-              input.value = parseInt(value).toLocaleString();
-          }
+          if (value) input.value = parseInt(value).toLocaleString();
       }
       function calculateInheritanceTax() {
-          const assetStr = document.getElementById('calc-asset').value.replace(/,/g, '');
-          const debtStr = document.getElementById('calc-debt').value.replace(/,/g, '');
-          const deductionStr = document.getElementById('calc-deduction').value.replace(/,/g, '');
-          const asset = parseInt(assetStr) || 0;
-          const debt = parseInt(debtStr) || 0;
-          const deduction = parseInt(deductionStr) || 0;
-          let taxBase = asset - debt - deduction;
-          if (taxBase < 0) taxBase = 0;
+          const asset = parseInt(document.getElementById('calc-asset').value.replace(/,/g, '') || 0);
+          const debt = parseInt(document.getElementById('calc-debt').value.replace(/,/g, '') || 0);
+          const deduction = parseInt(document.getElementById('calc-deduction').value.replace(/,/g, '') || 0);
+          let taxBase = Math.max(0, asset - debt - deduction);
           let tax = 0;
-          let rate = 0;
-          if (taxBase <= 100000000) { tax = taxBase * 0.1; rate = 10; }
-          else if (taxBase <= 500000000) { tax = taxBase * 0.2 - 10000000; rate = 20; }
-          else if (taxBase <= 1000000000) { tax = taxBase * 0.3 - 60000000; rate = 30; }
-          else if (taxBase <= 3000000000) { tax = taxBase * 0.4 - 160000000; rate = 40; }
-          else { tax = taxBase * 0.5 - 460000000; rate = 50; }
-          if (tax < 0) tax = 0;
-          document.getElementById('calc-tax-amount').innerText = Math.floor(tax).toLocaleString() + '원';
+          if (taxBase <= 100000000) tax = taxBase * 0.1;
+          else if (taxBase <= 500000000) tax = taxBase * 0.2 - 10000000;
+          else if (taxBase <= 1000000000) tax = taxBase * 0.3 - 60000000;
+          else if (taxBase <= 3000000000) tax = taxBase * 0.4 - 160000000;
+          else tax = taxBase * 0.5 - 460000000;
+          document.getElementById('calc-tax-amount').innerText = Math.floor(Math.max(0, tax)).toLocaleString() + '원';
           document.getElementById('calc-base').innerText = taxBase.toLocaleString();
-          document.getElementById('calc-rate').innerText = rate;
           document.getElementById('calc-result').classList.add('show');
       }
-
-      /* [신규] 채팅 기능 로직 */
       function sendMessage(type) {
-          const inputId = 'input-' + type;
-          const msgAreaId = 'msg-area-' + type;
-          const input = document.getElementById(inputId);
-          const msgArea = document.getElementById(msgAreaId);
+          const input = document.getElementById('input-' + type);
+          const msgArea = document.getElementById('msg-area-' + type);
           const text = input.value;
-
           if (!text.trim()) return;
-
-          // 1. 내 메시지 추가
-          const myMsg = `
-            <div class="chat-bubble-row me">
-                <div class="hstack">
-                    <div class="chat-time">방금</div>
-                    <div class="chat-bubble me">${text}</div>
-                </div>
-            </div>`;
-          msgArea.insertAdjacentHTML('beforeend', myMsg);
+          msgArea.insertAdjacentHTML('beforeend', `<div class="chat-bubble-row me"><div class="hstack"><div class="chat-time">방금</div><div class="chat-bubble me">${text}</div></div></div>`);
           input.value = '';
-          msgArea.scrollTop = msgArea.scrollHeight; // 스크롤 하단으로
-
-          // 2. 전문가 자동 응답 (1초 후)
+          msgArea.scrollTop = msgArea.scrollHeight;
           setTimeout(() => {
-              let replyText = "네, 확인했습니다. 구체적인 내용은 검토 후 답변 드리겠습니다.";
-              if(type === 'lawyer') replyText = "등기 관련 서류는 '필요 서류 체크리스트'를 참고해서 준비해주시면 빠릅니다.";
-              if(type === 'tax') replyText = "상속세 공제 한도를 먼저 확인해보시는 것이 좋겠습니다.";
-
-              const replyMsg = `
-                <div class="chat-bubble-row you">
-                    <div class="chat-profile">${type === 'lawyer' ? '👨‍⚖️' : '👩‍💼'}</div>
-                    <div>
-                        <div class="chat-name">${type === 'lawyer' ? '김법무 변호사' : '이세무 세무사'}</div>
-                        <div class="hstack">
-                            <div class="chat-bubble you">${replyText}</div>
-                            <div class="chat-time">방금</div>
-                        </div>
-                    </div>
-                </div>`;
-              msgArea.insertAdjacentHTML('beforeend', replyMsg);
+              const reply = type === 'lawyer' ? "등기 관련 서류는 '필요 서류 체크리스트'를 참고해주세요." : "상속세 공제 한도를 먼저 확인해보세요.";
+              msgArea.insertAdjacentHTML('beforeend', `<div class="chat-bubble-row you"><div class="chat-profile">${type === 'lawyer' ? '👨‍⚖️' : '👩‍💼'}</div><div><div class="chat-name">${type === 'lawyer' ? '김법무 변호사' : '이세무 세무사'}</div><div class="hstack"><div class="chat-bubble you">${reply}</div><div class="chat-time">방금</div></div></div></div>`);
               msgArea.scrollTop = msgArea.scrollHeight;
           }, 1000);
       }
+      function handleEnter(e, type) { if(e.key === 'Enter') sendMessage(type); }
 
-      function handleEnter(e, type) {
-          if(e.key === 'Enter') {
-              sendMessage(type);
+      /* [신규] Q&A 글쓰기 관련 스크립트 */
+      function openQnaWrite() {
+          document.getElementById('writeModal').classList.add('active');
+      }
+      function closeQnaWrite() {
+          document.getElementById('writeModal').classList.remove('active');
+          // 입력창 초기화
+          document.getElementById('qna-title').value = '';
+          document.getElementById('qna-content').value = '';
+      }
+      function submitQuestion() {
+          const category = document.getElementById('qna-category').value;
+          const title = document.getElementById('qna-title').value;
+          const content = document.getElementById('qna-content').value;
+
+          if(!title || !content) {
+              alert('제목과 내용을 모두 입력해주세요.');
+              return;
           }
+
+          // 새 질문 HTML 생성
+          const newQnaHtml = `
+              <div class="qna-item" style="padding:15px; background:#fffbfb;">
+                  <div class="hstack space-between">
+                      <span class="qna-tag" style="color:#5F0080; font-weight:bold;">${category} <span style="font-weight:normal; color:#888;">#신규</span></span>
+                      <span class="qna-status status-wait">답변대기</span>
+                  </div>
+                  <div class="bold mt-6">${title}</div>
+                  <div class="tiny muted mt-6">${content}</div>
+                  <div class="hstack gap-10 mt-6 tiny">
+                      <span class="muted">김○○님</span>
+                      <span class="muted" style="color:#e74c3c;">방금 전</span>
+                  </div>
+              </div>
+          `;
+
+          // 리스트 맨 앞에 추가
+          const container = document.getElementById('qna-container');
+          container.insertAdjacentHTML('afterbegin', newQnaHtml);
+
+          // 모달 닫기
+          alert('질문이 등록되었습니다. 전문가 답변을 기다려주세요.');
+          closeQnaWrite();
       }
   </script>
 </body>
