@@ -1,1 +1,1 @@
-# finale-mobile
+# finale-mobile (원본)
