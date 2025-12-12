@@ -6,10 +6,97 @@
   <title>Finale | 모바일 웹 데모</title>
   <meta name="description" content="상속·세무 지원 모바일 웹 데모 (텍스트 UI)" />
   <link rel="stylesheet" href="style.css" />
+  
+  <style>
+    /* 사이드바 (평소에는 숨겨져 있음) */
+    #sideMenu {
+      position: fixed;
+      top: 0;
+      left: -280px; /* 왼쪽으로 숨김 */
+      width: 280px;
+      height: 100%;
+      background: white;
+      z-index: 2000; /* 제일 위에 뜨게 */
+      transition: left 0.3s ease; /* 부드럽게 열리기 */
+      box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+      overflow-y: auto;
+    }
+    #sideMenu.active {
+      left: 0; /* 활성화되면 보임 */
+    }
+
+    /* 배경 어둡게 처리 */
+    #menuOverlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 1999;
+      display: none; /* 평소엔 안 보임 */
+    }
+    #menuOverlay.active {
+      display: block;
+    }
+
+    /* 사이드바 내부 디자인 */
+    .menu-header {
+        padding: 20px;
+        background: #f8f9fa;
+        border-bottom: 1px solid #eee;
+    }
+    .menu-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    .menu-list li {
+        border-bottom: 1px solid #f0f0f0;
+    }
+    .menu-list a {
+        display: block;
+        padding: 15px 20px;
+        text-decoration: none;
+        color: #333;
+        font-size: 15px;
+    }
+    .badge-new {
+        background: #e74c3c;
+        color: white;
+        font-size: 10px;
+        padding: 2px 5px;
+        border-radius: 4px;
+        margin-left: 5px;
+        vertical-align: middle;
+    }
+  </style>
 </head>
 <body>
-  <!-- 상단 바 -->
+
+  <div id="menuOverlay" onclick="toggleMenu()"></div> <aside id="sideMenu">
+      <div class="menu-header">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <h3 style="margin:0; font-size:16px;">김○○님, 안녕하세요</h3>
+            <button onclick="toggleMenu()" style="border:none; background:none; font-size:20px; cursor:pointer;">✕</button>
+          </div>
+          <p style="margin:5px 0 0 0; font-size:12px; color:#888;">finale@example.com</p>
+          <div style="margin-top:15px;">
+             <button class="btn primary small" style="width:100%;">로그아웃</button>
+          </div>
+      </div>
+      <ul class="menu-list">
+          <li><a href="#">📂 내 서류 보관함 <span class="badge-new">NEW</span></a></li>
+          <li><a href="#">🗣️ 상속 커뮤니티</a></li>
+          <li><a href="#">📢 공지사항 & 이벤트</a></li>
+          <li><a href="#">❓ 자주 묻는 질문 (FAQ)</a></li>
+          <li><a href="#">⚙️ 환경설정</a></li>
+      </ul>
+  </aside>
+
   <header id="appbar" class="appbar" aria-label="상단 내비게이션 바">
+    <button class="icon-btn" onclick="toggleMenu()" style="margin-right: 5px;">☰</button>
+    
     <button class="icon-btn" id="backBtn" aria-label="뒤로가기" data-action="back" hidden>←</button>
     <div class="brand"><span class="logo">F</span> Finale</div>
     <div class="spacer"></div>
@@ -18,7 +105,6 @@
   </header>
 
   <main id="app" class="app container">
-    <!-- 1) 로그인 -->
     <section class="screen" id="login" data-title="로그인" data-show-bottomnav="false">
       <div class="card logo-card">
         <div class="brand-xl"><span class="logo">F</span> Finale</div>
@@ -48,7 +134,6 @@
       </div>
     </section>
 
-    <!-- 2) 홈(나의 상속 관리) -->
     <section class="screen" id="home" data-title="나의 상속 관리">
       <div class="card">
         <div class="hstack space-between">
@@ -99,7 +184,6 @@
       </div>
     </section>
 
-    <!-- 2-1) 선택 화면 (법무 vs 세무) -->
     <section class="screen" id="choose" data-title="서비스 선택">
       <div class="vstack gap-10">
         <a class="select-card" href="#legal">
@@ -115,7 +199,6 @@
       </div>
     </section>
 
-    <!-- 3) 법무 서비스 리스트 -->
     <section class="screen" id="legal" data-title="법무 서비스">
       <ul class="list list-elev">
         <li class="list-item">
@@ -156,7 +239,6 @@
       </ul>
     </section>
 
-    <!-- 4) 세무 서비스 리스트 -->
     <section class="screen" id="tax" data-title="세무 서비스">
       <ul class="list list-elev">
         <li class="list-item">
@@ -190,7 +272,6 @@
       </ul>
     </section>
 
-    <!-- 5) 회원가입 (1/3) -->
     <section class="screen" id="signup" data-title="회원가입" data-show-bottomnav="false">
       <div class="card">
         <div class="muted center">1/3</div>
@@ -223,7 +304,6 @@
       </div>
     </section>
 
-    <!-- 더미 화면 -->
     <section class="screen" id="status" data-title="진행 현황">
       <div class="card"><p>진행 현황 화면(더미)</p></div>
     </section>
@@ -238,7 +318,6 @@
     </section>
   </main>
 
-  <!-- 하단 탭바 -->
   <nav id="tabbar" class="tabbar" aria-label="하단 탭바">
     <a href="#home" data-route="home" class="tab active"><span class="ic">🏠</span><span>홈</span></a>
     <a href="#status" data-route="status" class="tab"><span class="ic">📊</span><span>진행 현황</span></a>
@@ -248,5 +327,16 @@
   </nav>
 
   <script src="script.js"></script>
+
+  <script>
+      function toggleMenu() {
+          const menu = document.getElementById('sideMenu');
+          const overlay = document.getElementById('menuOverlay');
+          
+          // 클래스를 껐다 켰다(toggle) 합니다.
+          menu.classList.toggle('active');
+          overlay.classList.toggle('active');
+      }
+  </script>
 </body>
 </html>
