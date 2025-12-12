@@ -74,7 +74,8 @@
 </head>
 <body>
 
-  <div id="menuOverlay" onclick="toggleMenu()"></div> <aside id="sideMenu">
+  <div id="menuOverlay" onclick="toggleMenu()"></div> 
+  <aside id="sideMenu">
       <div class="menu-header">
           <div style="display:flex; justify-content:space-between; align-items:center;">
             <h3 style="margin:0; font-size:16px;">김○○님, 안녕하세요</h3>
@@ -305,17 +306,150 @@
     </section>
 
     <section class="screen" id="status" data-title="진행 현황">
-      <div class="card"><p>진행 현황 화면(더미)</p></div>
+        <div class="card">
+            <h3 class="title-sm mb-10">김철수님 상속 진행률 40%</h3>
+            <div class="progress-bar" style="background:#eee; height:8px; border-radius:4px; overflow:hidden;">
+                <div style="width:40%; background:#5F0080; height:100%;"></div>
+            </div>
+            <p class="tiny muted mt-6">예상 완료일: 2025. 12. 31</p>
+        </div>
+        <div class="vstack gap-10 mt-10">
+            <div class="card" style="border-left: 4px solid #5F0080;">
+                <div class="hstack space-between">
+                    <span style="font-weight:bold; color:#5F0080;">Step 1. 사망신고</span>
+                    <span class="chip">완료</span>
+                </div>
+                <p class="tiny muted mt-6">2025. 10. 01 처리 완료</p>
+            </div>
+            <div class="card" style="border-left: 4px solid #5F0080; background:#fdfaff;">
+                <div class="hstack space-between">
+                    <span style="font-weight:bold;">Step 2. 안심상속 원스톱 조회</span>
+                    <span class="chip" style="background:#5F0080; color:white;">진행 중</span>
+                </div>
+                <p class="tiny mt-6">금융감독원에서 자산 내역을 조회하고 있습니다.<br>(약 2주 소요 예정)</p>
+                <button class="btn primary small full mt-10">조회 결과 확인하기</button>
+            </div>
+            <div class="card" style="opacity: 0.6;">
+                <div class="hstack space-between">
+                    <span style="font-weight:bold;">Step 3. 상속세 신고</span>
+                    <span class="chip">대기</span>
+                </div>
+                <p class="tiny muted mt-6">자산 확정 후 세무사가 배정될 예정입니다.</p>
+            </div>
+        </div>
     </section>
+
     <section class="screen" id="assets" data-title="내 자산">
-      <div class="card"><p>내 자산 화면(더미)</p></div>
+        <div class="card" style="background: linear-gradient(135deg, #5F0080, #3a004d); color: white;">
+            <p class="tiny opacity-70">추정 상속 재산 가액</p>
+            <h2 class="title-lg mt-6">12억 5,000만원</h2>
+            <div class="hstack space-between mt-10 tiny opacity-70">
+                <span>자산 +13.5억</span>
+                <span>채무 -1.0억</span>
+            </div>
+        </div>
+        <div class="vstack gap-10 mt-10">
+            <h3 class="title-sm" style="padding: 0 5px;">자산 상세 내역</h3>
+            <div class="card">
+                <div class="hstack gap-10">
+                    <div class="ic">🏢</div>
+                    <div class="grow">
+                        <div class="bold">반포자이 아파트 84㎡</div>
+                        <div class="tiny muted">서울 서초구 · 아파트</div>
+                    </div>
+                    <div class="bold">11억 2,000만원</div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="hstack gap-10">
+                    <div class="ic">💰</div>
+                    <div class="grow">
+                        <div class="bold">국민은행 주택청약</div>
+                        <div class="tiny muted">예금/신탁</div>
+                    </div>
+                    <div class="bold">5,000만원</div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="hstack gap-10">
+                    <div class="ic">🚗</div>
+                    <div class="grow">
+                        <div class="bold">제네시스 G80</div>
+                        <div class="tiny muted">2023년식 · 차량가액</div>
+                    </div>
+                    <div class="bold">4,500만원</div>
+                </div>
+            </div>
+            <div class="card" style="border:1px solid #ffebeb;">
+                <div class="hstack gap-10">
+                    <div class="ic">📉</div>
+                    <div class="grow">
+                        <div class="bold" style="color:red;">우리은행 신용대출</div>
+                        <div class="tiny muted">금융 채무</div>
+                    </div>
+                    <div class="bold" style="color:red;">-1억 0,000만원</div>
+                </div>
+            </div>
+        </div>
     </section>
+
     <section class="screen" id="experts" data-title="전문가 연결">
-      <div class="card"><p>전문가 연결 화면(더미)</p></div>
+        <div class="card" style="background:#f8f9fa;">
+            <p class="tiny muted">김○○님 상황에 딱 맞는</p>
+            <h3 class="title-sm">상속 전문 파트너를 추천해 드립니다.</h3>
+        </div>
+        <div class="vstack gap-10 mt-10">
+            <div class="card">
+                <div class="hstack gap-10">
+                    <div style="width:50px; height:50px; background:#eee; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:24px;">👨‍⚖️</div>
+                    <div class="grow">
+                        <div class="bold">김법무 변호사</div>
+                        <div class="tiny muted">법무법인 피날레 · 경력 15년</div>
+                        <div class="chip" style="margin-top:5px; font-size:10px;">상속등기 전문</div>
+                    </div>
+                </div>
+                <p class="tiny mt-10 muted">"복잡한 등기 절차, 서류 준비부터 등기까지 한 번에 해결해 드립니다."</p>
+                <div class="hstack gap-10 mt-10">
+                    <button class="btn ghost small grow">프로필 보기</button>
+                    <button class="btn primary small grow">상담 신청</button>
+                </div>
+            </div>
+            <div class="card">
+                <div class="hstack gap-10">
+                    <div style="width:50px; height:50px; background:#eee; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:24px;">👩‍💼</div>
+                    <div class="grow">
+                        <div class="bold">이세무 세무사</div>
+                        <div class="tiny muted">세무회계 더함 · 경력 10년</div>
+                        <div class="chip" style="margin-top:5px; font-size:10px;">상속세 절세</div>
+                    </div>
+                </div>
+                <p class="tiny mt-10 muted">"최대 40% 절세 사례 보유. 사전 증여 전략까지 꼼꼼하게 챙겨드립니다."</p>
+                <div class="hstack gap-10 mt-10">
+                    <button class="btn ghost small grow">프로필 보기</button>
+                    <button class="btn primary small grow">상담 신청</button>
+                </div>
+            </div>
+        </div>
     </section>
+
     <section class="screen" id="mypage" data-title="마이페이지">
-      <div class="card"><p>마이페이지 화면(더미)</p></div>
+        <div class="card">
+            <div class="hstack gap-10">
+                 <div style="width:50px; height:50px; background:#eee; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:24px;">👤</div>
+                 <div>
+                     <div class="bold">김○○님</div>
+                     <div class="tiny muted">finale@example.com</div>
+                 </div>
+            </div>
+        </div>
+        <ul class="list list-elev mt-10">
+            <li class="list-item"><div>내 정보 수정</div><button class="btn ghost small">></button></li>
+            <li class="list-item"><div>알림 설정</div><button class="btn ghost small">ON</button></li>
+            <li class="list-item"><div>고객센터</div><button class="btn ghost small">></button></li>
+            <li class="list-item"><div>약관 및 정책</div><button class="btn ghost small">></button></li>
+        </ul>
     </section>
+
   </main>
 
   <nav id="tabbar" class="tabbar" aria-label="하단 탭바">
